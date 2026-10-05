@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title th:text="${titulo}">Formulario</title>
+</head>
+<body>
+<section>
+    <h1 th:text="${titulo}">Formulario</h1>
+
+    <form th:action="@{${accion}}" th:object="${contacto}" method="post">
+        <div class="mb-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" th:field="*{nombre}" class="form-control">
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" th:field="*{telefono}" class="form-control">
+            <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="provincia" class="form-label">Provincia</label>
+            <select id="provincia" name="provincia" class="form-select">
+                <option value="">-- Sin provincia --</option>
+                <option th:each="p : ${provincias}"
+                        th:value="${p.id}"
+                        th:text="${p.nombre}"
+                        th:selected="${contacto.provincia != null and contacto.provincia.id == p.id}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</section>
+</body>
+</html>                     

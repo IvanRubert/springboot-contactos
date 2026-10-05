@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Inicio</title>
+</head>
+<body>
+    <section>
+        <h1>Contactos</h1>
+        <h2>Bienvenido a la web de contactos.</h2>
+        <p>Página de inicio</p>
+        <div th:each="contacto : ${contactos}">
+            <div th:replace="~{partials/contacto :: contacto(${contacto})}"></div>
+        </div>
+    </section>
+</body>
+</html>

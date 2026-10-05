@@ -1,0 +1,16 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Ficha del contacto</title>
+</head>
+<body>
+    <section>
+        <div th:if="${contacto != null}">
+            <h1>Ficha del contacto</h1>
+            <div th:replace="~{partials/contacto :: contacto(${contacto})}"></div>
+        </div>
+        <p th:unless="${contacto != null}">No se ha encontrado el contacto</p>
+    </section>
+</body>
+</html>
