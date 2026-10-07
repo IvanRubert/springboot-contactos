@@ -5,12 +5,25 @@
     <title>Inicio</title>
 </head>
 <body>
-    <section>
-        <h1>Contactos</h1>
-        <h2>Bienvenido a la web de contactos.</h2>
-        <p>Página de inicio</p>
-        <div th:each="contacto : ${contactos}">
-            <div th:replace="~{partials/contacto :: contacto(${contacto})}"></div>
+    <section class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Contactos</h1>
+            <a th:href="@{/contacto/nuevo}" class="btn btn-primary">Añadir contacto</a>
+        </div>
+        
+        <p class="lead">Bienvenido a la web de contactos.</p>
+        
+        <div class="list-group">
+            <a th:each="contacto : ${contactos}" 
+               th:href="@{/contacto/{id}(id=${contacto.id})}" 
+               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span th:text="${contacto.nombre}">Nombre</span>
+                <span class="badge bg-primary rounded-pill" th:text="${contacto.provincia?.nombre ?: 'Sin provincia'}">Provincia</span>
+            </a>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(contactos)}" class="alert alert-info mt-3">
+            No hay contactos disponibles. <a th:href="@{/contacto/nuevo}" class="alert-link">¡Añade uno ahora!</a>
         </div>
     </section>
 </body>

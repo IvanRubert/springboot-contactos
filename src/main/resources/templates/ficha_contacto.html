@@ -5,12 +5,28 @@
     <title>Ficha del contacto</title>
 </head>
 <body>
-    <section>
+    <section class="container mt-4">
         <div th:if="${contacto != null}">
-            <h1>Ficha del contacto</h1>
-            <div th:replace="~{partials/contacto :: contacto(${contacto})}"></div>
+            <h1 class="mb-4">Ficha del contacto</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <div th:replace="~{partials/contacto :: contacto(${contacto})}"></div>
+                </div>
+            </div>
+            
+            <form th:action="@{/contacto/acciones/{id}(id=${contacto.id})}" method="post" class="d-inline">
+                <button type="submit" name="accion" value="guardar" class="btn btn-warning">Editar</button>
+                <button type="submit" name="accion" value="borrar" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas borrar este contacto?');">Borrar</button>
+            </form>
+            
+            <a th:href="@{/}" class="btn btn-secondary ms-2">Volver</a>
         </div>
-        <p th:unless="${contacto != null}">No se ha encontrado el contacto</p>
+        
+        <div th:unless="${contacto != null}" class="alert alert-danger">
+            <p>No se ha encontrado el contacto</p>
+            <a th:href="@{/}" class="btn btn-secondary">Volver</a>
+        </div>
     </section>
 </body>
 </html>

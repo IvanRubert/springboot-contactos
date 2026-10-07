@@ -95,14 +95,19 @@ public class ContactoController {
         return "redirect:/contacto/" + codigo;
     }
 
-    @GetMapping("/contacto/eliminar/{id}")
-    public String eliminar(@PathVariable Integer id) {
-        try {
-            contactoRepositorio.deleteById(id);
-        } catch (DataIntegrityViolationException e) {
-            // p. ej., el contacto tiene datos relacionados que impiden borrarlo
-            return "redirect:/contacto/" + id;
+    @PostMapping("/contacto/acciones/{id}")
+    public String acciones(@PathVariable Integer id, @org.springframework.web.bind.annotation.RequestParam String accion) {
+        if ("guardar".equals(accion)) {
+            return "redirect:/contacto/editar/" + id;
+        } else if ("borrar".equals(accion)) {
+            try {
+                contactoRepositorio.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                // p. ej., el contacto tiene datos relacionados que impiden borrarlo
+                return "redirect:/contacto/" + id;
+            }
+            return "redirect:/";
         }
-        return "redirect:/";
+        return "redirect:/contacto/" + id;
     }
 }

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:fragment="layout(tituloFragmento, contenido)">
 <head>
     <meta charset="UTF-8">
@@ -9,9 +10,25 @@
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-outline-secondary">Cerrar sesión</button>
-    </form>
+    <header class="navbar navbar-expand-lg navbar-light bg-light mb-4 border-bottom">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">App Contactos</a>
+            <div class="d-flex ms-auto">
+                <!-- If logged in -->
+                <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
+                    <span class="me-3">Hola <span sec:authentication="name">Usuario</span></span>
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Cerrar sesión</button>
+                    </form>
+                </div>
+                <!-- If not logged in -->
+                <div sec:authorize="!isAuthenticated()" class="d-flex gap-2">
+                    <a th:href="@{/login}" class="btn btn-sm btn-outline-primary">Iniciar sesión</a>
+                    <a th:href="@{/register}" class="btn btn-sm btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </header>
     
     <main th:replace="${contenido}"></main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

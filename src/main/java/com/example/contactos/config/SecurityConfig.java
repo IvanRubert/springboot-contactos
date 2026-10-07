@@ -18,7 +18,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // recursos estáticos y páginas públicas
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/", "/login", "/register").permitAll()
+                .requestMatchers("/login", "/register", "/error").permitAll()
                 // solo administradores
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 // todo lo demás requiere estar autenticado
