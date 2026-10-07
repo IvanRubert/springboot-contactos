@@ -35,7 +35,7 @@ public class ContactoController {
     @GetMapping(value = { "/contacto", "/contacto/", "/contacto/{codigo:[0-9]+}" })
     public String ficha(@PathVariable(required = false) Integer codigo, Model model) {
         if (codigo == null) {
-            return "redirect:/contacto/1";
+            return "redirect:/";
         }
 
         Contacto contacto = contactoRepositorio.findById(codigo).orElse(null);
