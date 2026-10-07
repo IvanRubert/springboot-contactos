@@ -3,4 +3,5 @@
     <li class="list-group-item"><strong>Teléfono</strong>: <span th:text="${c.telefono}">000</span></li>
     <li class="list-group-item"><strong>E-mail</strong>: <span th:text="${c.email}">a@a.com</span></li>
     <li class="list-group-item"><strong>Provincia</strong>: <span th:text="${c.provincia?.nombre ?: 'Sin provincia'}">Provincia</span></li>
+    <li class="list-group-item"><strong>País</strong>: <span th:text="${c.provincia?.pais?.nombre ?: 'Sin país'}">País</span></li>
 </ul>

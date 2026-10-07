@@ -8,6 +8,10 @@ import com.example.contactos.repository.UsuarioRepository;
 import com.example.contactos.entity.Usuario;
 import java.util.Set;
 import java.util.HashSet;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioDetailsService implements UserDetailsService {
@@ -27,10 +31,23 @@ public class UsuarioDetailsService implements UserDetailsService {
         Set<String> roles = new HashSet<>(u.getRoles());
         roles.add("ROLE_USER");
 
-        return org.springframework.security.core.userdetails.User
-            .withUsername(u.getEmail())
-            .password(u.getPassword())
-            .authorities(roles.toArray(new String[0]))
-            .build();
+        Collection<GrantedAuthority> authorities = roles.stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+
+        return new CustomUserDetails(u.getEmail(), u.getPassword(), authorities, u.getNombre());
+    }
+
+    public static class CustomUserDetails extends org.springframework.security.core.userdetails.User {
+        private final String nombre;
+
+        public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String nombre) {
+            super(username, password, authorities);
+            this.nombre = nombre;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
     }
 }

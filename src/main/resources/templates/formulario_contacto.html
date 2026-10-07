@@ -30,7 +30,7 @@
                 <option value="">-- Sin provincia --</option>
                 <option th:each="p : ${provincias}"
                         th:value="${p.id}"
-                        th:text="${p.nombre}"
+                        th:text="${p.nombre} + ' (' + (${p.pais != null ? p.pais.nombre : 'Sin país'}) + ')'"
                         th:selected="${contacto.provincia != null and contacto.provincia.id == p.id}">
                 </option>
             </select>

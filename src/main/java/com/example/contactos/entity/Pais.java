@@ -3,7 +3,7 @@ package com.example.contactos.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Provincia {
+public class Pais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,16 +11,9 @@ public class Provincia {
 
     @Column(nullable = false)
     private String nombre;
-    
-    @ManyToOne
-    @JoinColumn(name = "pais_id")
-    private Pais pais;
 
     public Integer getId() { return id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public Pais getPais() { return pais; }
-    public void setPais(Pais pais) { this.pais = pais; }
 }

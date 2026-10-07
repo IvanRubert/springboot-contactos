@@ -18,7 +18,7 @@
                th:href="@{/contacto/{id}(id=${contacto.id})}" 
                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                 <span th:text="${contacto.nombre}">Nombre</span>
-                <span class="badge bg-primary rounded-pill" th:text="${contacto.provincia?.nombre ?: 'Sin provincia'}">Provincia</span>
+                <span class="badge bg-primary rounded-pill" th:text="${contacto.provincia?.nombre ?: 'Sin provincia'} + ' (' + (${contacto.provincia?.pais != null ? contacto.provincia.pais.nombre : 'Sin país'}) + ')'">Provincia</span>
             </a>
         </div>
         
